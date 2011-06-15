@@ -31,7 +31,7 @@ public class ListaChamadaTest extends TestCase {
      * Test of templateOk method, of class ListaChamada.
      */
     public void testTemplateOk() {
-        ListaChamada lista = new ListaChamada("test/trabalhofinal/template.svg");
+        ListaChamada lista = new ListaChamada("test/presenca/template.svg");
         assertTrue(lista.templateOk());
 
         
@@ -42,13 +42,13 @@ public class ListaChamadaTest extends TestCase {
         assertFalse(lista.templateOk());
         
         lista = new ListaChamada();
-        lista.setTemplate("test/trabalhofinal/template.svg");
+        lista.setTemplate("test/presenca/template.svg");
         assertTrue(lista.templateOk());
     }
     
     public void testSaveOutput() {
-        ListaChamada lista = new ListaChamada("test/trabalhofinal/template.svg");
-        lista.setOutput("test/trabalhofinal/lista.svg");
+        ListaChamada lista = new ListaChamada("test/presenca/template.svg");
+        lista.setOutput("test/presenca/lista.svg");
         
         Professor professor = new Professor();
         professor.setNome("Fernando da Silva");
