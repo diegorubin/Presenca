@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Professor extends Model{
     private String nome;
+    private Endereco endereco;
     
     public Professor(){
     }
@@ -34,6 +35,14 @@ public class Professor extends Model{
         attributes.add("nome");
         
         return attributes;
+    }
+    
+    @Override
+    protected boolean afterSave(){
+        if(!endereco.save())
+            return false;
+        
+        return true;
     }
     
 }

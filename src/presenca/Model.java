@@ -145,6 +145,10 @@ public abstract class Model {
         
         return attributes;
     }
+    
+    protected boolean afterSave(){
+        return true;
+    }
 
     private void Conecta(){
         try{

@@ -29,57 +29,74 @@ public class frmProfessor extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tlbProfessores = new javax.swing.JToolBar();
+        btnAdicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProfessores = new javax.swing.JTable();
 
-        setLayout(new java.awt.GridBagLayout());
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        jToolBar1.setRollover(true);
+        tlbProfessores.setRollover(true);
+        tlbProfessores.setMaximumSize(new java.awt.Dimension(32767, 30));
 
-        jButton1.setText("jButton1");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.setFocusable(false);
+        btnAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAdicionar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/presenca/add_item_128.png"))); // NOI18N
+        btnAdicionar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+        tlbProfessores.add(btnAdicionar);
 
-        jButton2.setText("jButton2");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        add(tlbProfessores);
 
-        add(jToolBar1, new java.awt.GridBagConstraints());
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProfessores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        add(jScrollPane1, gridBagConstraints);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblProfessores.setColumnSelectionAllowed(true);
+        tblProfessores.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblProfessores);
+        tblProfessores.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        frmEditProfessor editProfessor = new frmEditProfessor("Novo Professor");
+        editProfessor.setVisible(true);
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAdicionar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tblProfessores;
+    private javax.swing.JToolBar tlbProfessores;
     // End of variables declaration//GEN-END:variables
 }
