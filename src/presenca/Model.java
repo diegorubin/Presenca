@@ -149,7 +149,7 @@ public abstract class Model {
     private void Conecta(){
         try{
             Class.forName("org.gjt.mm.mysql.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/TrabalhoFinal","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/Presenca","root","root");
         }
         catch(SQLException ex){
             ex.printStackTrace();

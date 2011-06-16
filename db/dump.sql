@@ -15,9 +15,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP DATABASE IF EXISTS `TrabalhoFinal`;
-CREATE DATABASE `TrabalhoFinal`;
-USE `TrabalhoFinal`;
+DROP DATABASE IF EXISTS `Presenca`;
+CREATE DATABASE `Presenca`;
+USE `Presenca`;
 
 --
 -- Table structure for table `Professor`
