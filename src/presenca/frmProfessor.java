@@ -10,6 +10,9 @@
  */
 package presenca;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+
 /**
  *
  * @author diego
@@ -32,6 +35,8 @@ public class frmProfessor extends javax.swing.JPanel {
 
         tlbProfessores = new javax.swing.JToolBar();
         btnAdicionar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProfessores = new javax.swing.JTable();
 
@@ -40,10 +45,11 @@ public class frmProfessor extends javax.swing.JPanel {
         tlbProfessores.setRollover(true);
         tlbProfessores.setMaximumSize(new java.awt.Dimension(32767, 30));
 
-        btnAdicionar.setText("Adicionar");
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presenca/resources/add.png"))); // NOI18N
+        btnAdicionar.setText(" Adicionar ");
+        btnAdicionar.setBorder(null);
         btnAdicionar.setFocusable(false);
         btnAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAdicionar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/presenca/add_item_128.png"))); // NOI18N
         btnAdicionar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,14 +58,27 @@ public class frmProfessor extends javax.swing.JPanel {
         });
         tlbProfessores.add(btnAdicionar);
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presenca/resources/edit.png"))); // NOI18N
+        btnEditar.setText(" Editar ");
+        btnEditar.setBorder(null);
+        btnEditar.setFocusable(false);
+        btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbProfessores.add(btnEditar);
+
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presenca/resources/delete.png"))); // NOI18N
+        btnRemover.setText(" Remover ");
+        btnRemover.setBorder(null);
+        btnRemover.setFocusable(false);
+        btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRemover.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbProfessores.add(btnRemover);
+
         add(tlbProfessores);
 
         tblProfessores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Nome"
@@ -89,12 +108,14 @@ public class frmProfessor extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        frmEditProfessor editProfessor = new frmEditProfessor("Novo Professor");
+        dlgEditProfessor editProfessor = new dlgEditProfessor(null,"Novo Professor");
         editProfessor.setVisible(true);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnRemover;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProfessores;
     private javax.swing.JToolBar tlbProfessores;

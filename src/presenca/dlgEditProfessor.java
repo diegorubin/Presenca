@@ -4,24 +4,41 @@
  */
 
 /*
- * frmEditProfessor.java
+ * dlgEditProfessor.java
  *
- * Created on Jun 16, 2011, 12:56:37 PM
+ * Created on 16/06/2011, 20:51:32
  */
 package presenca;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author drubin
+ * @author diego
  */
-public class frmEditProfessor extends javax.swing.JFrame {
+public class dlgEditProfessor extends javax.swing.JDialog {
 
-    /** Creates new form frmEditProfessor */
-    public frmEditProfessor(String title) {
+    private Professor professor;
+    
+    /** Creates new form dlgEdirProfessor */
+    public dlgEditProfessor(java.awt.Frame parent, boolean modal) {
+        initComponents();     
+    }
+    
+    public dlgEditProfessor(java.awt.Frame parent, String titulo){
+        super((JFrame)parent,true);
         initComponents();
+
+        lblTitulo.setText(titulo);
+        professor = new Professor();
         
-        this.setTitle(title);
-        lblTitulo.setText(title);
+    }
+    
+    public dlgEditProfessor(java.awt.Frame parent, String titulo, Integer professorId){
+        super((JFrame)parent, titulo);
+        professor = new Professor(professorId);
+        setForm();
     }
 
     /** This method is called from within the constructor to
@@ -59,7 +76,7 @@ public class frmEditProfessor extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
+            .addGap(0, 364, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,11 +91,17 @@ public class frmEditProfessor extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,6 +122,7 @@ public class frmEditProfessor extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 309, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
@@ -108,7 +132,7 @@ public class frmEditProfessor extends javax.swing.JFrame {
                     .addComponent(entNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
@@ -120,11 +144,21 @@ public class frmEditProfessor extends javax.swing.JFrame {
 
     private void entNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_entNomeActionPerformed
+}//GEN-LAST:event_entNomeActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
+        dispose();
+}//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if(professor.save()){
+            JOptionPane.showMessageDialog(this, "Professor salvo com sucesso.");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Não foi possível salvar os dados.");
+        }
+}//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -134,4 +168,12 @@ public class frmEditProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
+    
+    private void getFromForm(){
+        professor.setNome(entNome.getText());
+    }
+    
+    private void setForm(){
+        entNome.setText(professor.getNome());
+    }
 }

@@ -50,6 +50,46 @@ public abstract class Model {
         Fechar();
 
     }
+    
+    public ArrayList<Model> all(String conditions){
+        ArrayList<Model> contents = new ArrayList<Model>();
+        
+        Statement statement;
+        ResultSet result;
+        String query = "SELECT * FROM " + 
+                       this.getClass().getSimpleName() + 
+                       " WHERE id = " + id + ";";
+        if(!conditions.isEmpty()){
+            //TODO: next step
+        }
+
+        try{
+            Conecta();
+            statement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                                            ResultSet.CONCUR_READ_ONLY);
+            result = statement.executeQuery(query);
+            result.first();
+
+            this.id = result.getInt("id");
+            for(String attribute: getAttributes()){
+                try{
+                    Method setMethod = this.getClass().getMethod("set" + Utils.titlelize(attribute), String.class);
+                    setMethod.invoke(this,result.getString(attribute));
+                }catch(NoSuchMethodException e){
+                    System.err.println("Campo '" + attribute + "' não existe para '" + this.getClass().getSimpleName() +"' ");
+                }catch(Exception e){
+                    System.err.println("O método '" + attribute + "' não é publico");
+                }
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Query: " + query);
+            System.out.println("Problema na consulta");
+        }
+        Fechar();
+        
+        return contents;
+    }
 
     public boolean save(){
         return save(false);
