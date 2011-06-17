@@ -5,6 +5,7 @@
 package presenca;
 
 import junit.framework.TestCase;
+import java.util.ArrayList;
 
 /**
  *
@@ -56,5 +57,13 @@ public class ProfessorTest extends TestCase {
     public void testDestroy() {
         Professor professor = new Professor(1);
         assertEquals(professor.destroy(),true);
+    }
+    
+    /**
+     * Test of recover all itens from database.
+     */
+    public void testAll(){
+        Professor professor = new Professor();
+        ArrayList<Model> professores = professor.all("");
     }
 }
