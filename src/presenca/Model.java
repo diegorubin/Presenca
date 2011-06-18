@@ -4,6 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.lang.reflect.Method;
 
+/*
+ * Eu sei que esta lógica não era para estar aqui
+ * Se der tempo eu penso em algo melhor, mas por enquanto ...
+ */
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author diego
@@ -51,11 +59,18 @@ public abstract class Model {
 
     }
     
-    public ArrayList<Model> all(String conditions){
-        ArrayList<Model> contents = new ArrayList<Model>();
-        
+    public void toTable(JTable table, String conditions){
+       
         Statement statement;
         ResultSet result;
+
+        DefaultTableModel mdlModel = (DefaultTableModel)table.getModel();
+        
+        int i;
+        for(i = mdlModel.getRowCount() - 1; i >= 0; i-- ){
+            mdlModel.removeRow(i);
+        }
+        
         String query = "SELECT * FROM " + 
                        this.getClass().getSimpleName();
         if(!conditions.isEmpty()){
@@ -70,35 +85,28 @@ public abstract class Model {
                                             ResultSet.CONCUR_READ_ONLY);
             result = statement.executeQuery(query);
             
+            Object contents[] = new Object[getAttributes().size()+1];
+            
             while(result.next()){
-                Class model = this.getClass();
-                Object obj = model.newInstance();
-                this.id = result.getInt("id");
+                i=0;
+                contents[i++] = result.getString("id");
                 for(String attribute: getAttributes()){
                     try{
-                        Method setMethod = this.getClass().getMethod("set" + Utils.titlelize(attribute), String.class);
-                        setMethod.invoke(this,result.getString(attribute));
-                    }catch(NoSuchMethodException e){
-                        System.err.println("Campo '" + attribute + "' não existe para '" + this.getClass().getSimpleName() +"' ");
+                        contents[i++] = result.getString(attribute);
                     }catch(Exception e){
+                        e.printStackTrace();
                         System.err.println("O método '" + attribute + "' não é publico");
                     }
                 }
+                mdlModel.addRow(contents);
             }
             
         }catch(SQLException e){
             System.out.println("Query: " + query);
             System.out.println("Problema na consulta");
-        }catch(InstantiationException e){
-            System.out.println("Não possível criar instancia do modelo");
-            e.printStackTrace();
-        }catch(IllegalAccessException e){
-            System.out.println("Não foi possível acessar construtor do modelo");
-            e.printStackTrace();
         }
         Fechar();
         
-        return contents;
     }
 
     public boolean save(){

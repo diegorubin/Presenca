@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 public class dlgEditProfessor extends javax.swing.JDialog {
 
     private Professor professor;
+    private boolean newRecord = true;
     
     /** Creates new form dlgEdirProfessor */
     public dlgEditProfessor(java.awt.Frame parent, boolean modal) {
@@ -27,8 +28,7 @@ public class dlgEditProfessor extends javax.swing.JDialog {
     }
     
     public dlgEditProfessor(java.awt.Frame parent, String titulo){
-        super((JFrame)parent,true);
-        initComponents();
+        this((JFrame)parent,true);
 
         lblTitulo.setText(titulo);
         professor = new Professor();
@@ -36,8 +36,11 @@ public class dlgEditProfessor extends javax.swing.JDialog {
     }
     
     public dlgEditProfessor(java.awt.Frame parent, String titulo, Integer professorId){
-        super((JFrame)parent, titulo);
+        this((JFrame)parent, titulo);
+  
+        newRecord = false;
         professor = new Professor(professorId);
+
         setForm();
     }
 
@@ -151,7 +154,8 @@ public class dlgEditProfessor extends javax.swing.JDialog {
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(professor.save()){
+        getFromForm();
+        if(professor.save(newRecord)){
             JOptionPane.showMessageDialog(this, "Professor salvo com sucesso.");
             dispose();
         } else {

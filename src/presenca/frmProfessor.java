@@ -9,19 +9,20 @@
  * Created on 06/06/2011, 20:01:27
  */
 package presenca;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author diego
  */
 public class frmProfessor extends javax.swing.JPanel {
-
+    Professor professor;
+    dlgEditProfessor editProfessor;
+    
     /** Creates new form frmProfessor */
     public frmProfessor() {
         initComponents();
+        professor = new Professor();
+        generateTable();
     }
 
     /** This method is called from within the constructor to
@@ -64,6 +65,11 @@ public class frmProfessor extends javax.swing.JPanel {
         btnEditar.setFocusable(false);
         btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         tlbProfessores.add(btnEditar);
 
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presenca/resources/delete.png"))); // NOI18N
@@ -72,6 +78,11 @@ public class frmProfessor extends javax.swing.JPanel {
         btnRemover.setFocusable(false);
         btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRemover.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
         tlbProfessores.add(btnRemover);
 
         add(tlbProfessores);
@@ -81,14 +92,14 @@ public class frmProfessor extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nome"
+                "id", "Nome"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -108,9 +119,43 @@ public class frmProfessor extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        dlgEditProfessor editProfessor = new dlgEditProfessor(null,"Novo Professor");
+        editProfessor = new dlgEditProfessor(null,"Novo Professor");
         editProfessor.setVisible(true);
+        generateTable();
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        Integer idProfessor = tblProfessores.getSelectedRow();
+        if(idProfessor >= 0){
+            String id = (String)tblProfessores.getValueAt(idProfessor, 0);
+        
+            editProfessor = new dlgEditProfessor(null, "Editar Professor", Integer.parseInt(id));
+            editProfessor.setVisible(true);
+            generateTable();
+        }else{
+            JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado.");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        Integer idProfessor = tblProfessores.getSelectedRow();
+        if(idProfessor >= 0){
+            String id = (String)tblProfessores.getValueAt(idProfessor, 0);
+        
+            int result = JOptionPane.showConfirmDialog(this, 
+                                                       "A ação de remoção não poderá ser desfeita.\nDeseja prosseguir?", 
+                                                       "Deseja remover o professor?",
+                                                       0);
+            if(result == 0){
+                professor = new Professor(Integer.parseInt(id));
+                professor.destroy();
+                generateTable();
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado.");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -120,4 +165,8 @@ public class frmProfessor extends javax.swing.JPanel {
     private javax.swing.JTable tblProfessores;
     private javax.swing.JToolBar tlbProfessores;
     // End of variables declaration//GEN-END:variables
+
+    private void generateTable(){
+        professor.toTable(tblProfessores, "");
+    }
 }
