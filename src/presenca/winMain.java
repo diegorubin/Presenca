@@ -34,7 +34,7 @@ public class winMain extends javax.swing.JFrame {
     private void initComponents() {
 
         frmContent = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        mnbMain = new javax.swing.JMenuBar();
         mnArquivo = new javax.swing.JMenu();
         mnSair = new javax.swing.JMenuItem();
         mnAlunos = new javax.swing.JMenu();
@@ -42,7 +42,8 @@ public class winMain extends javax.swing.JFrame {
         mnProfessores = new javax.swing.JMenu();
         mnGerenciarProfessores = new javax.swing.JMenuItem();
         mnTurmas = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnGerenciarTurma = new javax.swing.JMenuItem();
+        mnGerenciarDisciplinas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Presença - Gestão de Alunos");
@@ -63,7 +64,7 @@ public class winMain extends javax.swing.JFrame {
         });
         mnArquivo.add(mnSair);
 
-        jMenuBar1.add(mnArquivo);
+        mnbMain.add(mnArquivo);
 
         mnAlunos.setText("Alunos");
 
@@ -75,7 +76,7 @@ public class winMain extends javax.swing.JFrame {
         });
         mnAlunos.add(mnGerenciarAlunos);
 
-        jMenuBar1.add(mnAlunos);
+        mnbMain.add(mnAlunos);
 
         mnProfessores.setText("Professores");
 
@@ -87,16 +88,24 @@ public class winMain extends javax.swing.JFrame {
         });
         mnProfessores.add(mnGerenciarProfessores);
 
-        jMenuBar1.add(mnProfessores);
+        mnbMain.add(mnProfessores);
 
         mnTurmas.setText("Turmas");
 
-        jMenuItem1.setText("Gerar Lista");
-        mnTurmas.add(jMenuItem1);
+        mnGerenciarTurma.setText("Gerenciar Turmas");
+        mnGerenciarTurma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGerenciarTurmaActionPerformed(evt);
+            }
+        });
+        mnTurmas.add(mnGerenciarTurma);
 
-        jMenuBar1.add(mnTurmas);
+        mnGerenciarDisciplinas.setText("Gerenciar Disciplinas");
+        mnTurmas.add(mnGerenciarDisciplinas);
 
-        setJMenuBar(jMenuBar1);
+        mnbMain.add(mnTurmas);
+
+        setJMenuBar(mnbMain);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -117,6 +126,12 @@ public class winMain extends javax.swing.JFrame {
         frmContent.validate(); 
     }//GEN-LAST:event_mnGerenciarAlunosActionPerformed
 
+    private void mnGerenciarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGerenciarTurmaActionPerformed
+        frmContent.removeAll();
+        frmContent.add(new frmTurma());
+        frmContent.validate(); 
+    }//GEN-LAST:event_mnGerenciarTurmaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -130,14 +145,15 @@ public class winMain extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel frmContent;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu mnAlunos;
     private javax.swing.JMenu mnArquivo;
     private javax.swing.JMenuItem mnGerenciarAlunos;
+    private javax.swing.JMenuItem mnGerenciarDisciplinas;
     private javax.swing.JMenuItem mnGerenciarProfessores;
+    private javax.swing.JMenuItem mnGerenciarTurma;
     private javax.swing.JMenu mnProfessores;
     private javax.swing.JMenuItem mnSair;
     private javax.swing.JMenu mnTurmas;
+    private javax.swing.JMenuBar mnbMain;
     // End of variables declaration//GEN-END:variables
 }

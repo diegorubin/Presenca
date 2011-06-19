@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+    <Menu class="javax.swing.JMenuBar" name="mnbMain">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnArquivo">
           <Properties>
@@ -54,9 +54,17 @@
             <Property name="text" type="java.lang.String" value="Turmas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="mnGerenciarTurma">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gerar Lista"/>
+                <Property name="text" type="java.lang.String" value="Gerenciar Turmas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnGerenciarTurmaActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnGerenciarDisciplinas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gerenciar Disciplinas"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -71,7 +79,7 @@
     <Property name="name" type="java.lang.String" value="frmMain" noResource="true"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="mnbMain"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
   <AuxValues>

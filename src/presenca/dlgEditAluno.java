@@ -73,7 +73,7 @@ public class dlgEditAluno extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblTitulo.setFont(new java.awt.Font("Cantarell", 1, 18));
+        lblTitulo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         lblTitulo.setText("TITULO");
 
         pnlGeral.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações Principais"));
@@ -137,7 +137,6 @@ public class dlgEditAluno extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +158,6 @@ public class dlgEditAluno extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lblTitulo)
@@ -177,10 +175,6 @@ public class dlgEditAluno extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void entNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entNomeActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_entNomeActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
@@ -194,6 +188,10 @@ public class dlgEditAluno extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Não foi possível salvar os dados.");
         }
 }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void entNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entNomeActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_entNomeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
