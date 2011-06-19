@@ -51,7 +51,7 @@ public class winMain extends javax.swing.JFrame {
         setName("frmMain"); // NOI18N
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        frmContent.setLayout(new java.awt.GridLayout());
+        frmContent.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(frmContent);
 
         mnArquivo.setText("Arquivo");
@@ -101,6 +101,11 @@ public class winMain extends javax.swing.JFrame {
         mnTurmas.add(mnGerenciarTurma);
 
         mnGerenciarDisciplinas.setText("Gerenciar Disciplinas");
+        mnGerenciarDisciplinas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGerenciarDisciplinasActionPerformed(evt);
+            }
+        });
         mnTurmas.add(mnGerenciarDisciplinas);
 
         mnbMain.add(mnTurmas);
@@ -131,6 +136,12 @@ public class winMain extends javax.swing.JFrame {
         frmContent.add(new frmTurma());
         frmContent.validate(); 
     }//GEN-LAST:event_mnGerenciarTurmaActionPerformed
+
+    private void mnGerenciarDisciplinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGerenciarDisciplinasActionPerformed
+        frmContent.removeAll();
+        frmContent.add(new frmDisciplina());
+        frmContent.validate(); 
+    }//GEN-LAST:event_mnGerenciarDisciplinasActionPerformed
 
     /**
      * @param args the command line arguments
