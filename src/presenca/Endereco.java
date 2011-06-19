@@ -4,6 +4,7 @@
  */
 package presenca;
 
+import java.util.ArrayList;
 /**
  *
  * @author drubin
@@ -90,5 +91,21 @@ public class Endereco extends Model{
     
     public void setUf(String uf){
         this.uf = uf;
+    }
+    
+    @Override
+    protected ArrayList<String> getAttributes(){
+        ArrayList<String> attributes = new ArrayList<String>();
+        attributes.add("classeObjeto");
+        attributes.add("idObjeto");
+        attributes.add("municipio");
+        attributes.add("logradouro");
+        attributes.add("bairro");
+        attributes.add("cep");
+        attributes.add("numero");
+        attributes.add("uf");
+        
+        
+        return attributes;
     }
 }

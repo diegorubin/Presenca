@@ -15,11 +15,12 @@ public class Professor extends Model{
     private Endereco endereco;
     
     public Professor(){
+        endereco = new Endereco();
     }
     
     public Professor(Integer id){
         super(id);
-        endereco = new Endereco(this.getClass().toString(),id);
+        endereco = new Endereco("Professor",id);
     }
     
     public void setNome(String nome){
@@ -47,13 +48,10 @@ public class Professor extends Model{
     }
     
     @Override
-    protected boolean afterSave(){
-        endereco.setClasseObjeto(this.getClass().toString());
+    protected boolean afterSave(boolean new_record){
+        endereco.setClasseObjeto("Professor");
         endereco.setIdObjeto(id);
-        if(!endereco.save())
-            return false;
-        
-        return true;
+        return endereco.save(new_record);
     }
     
 }

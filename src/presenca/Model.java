@@ -53,8 +53,17 @@ public abstract class Model {
             this.id = result.getInt("id");
             for(String attribute: getAttributes()){
                 try{
-                    Method setMethod = this.getClass().getMethod("set" + Utils.titlelize(attribute), String.class);
-                    setMethod.invoke(this,result.getString(attribute));
+                    Method setMethod;
+                    Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
+                    Class returnType = getMethod.getReturnType();
+                    
+                    if(returnType == Integer.class){
+                        setMethod = this.getClass().getMethod("set" + Utils.titlelize(attribute), Integer.class);
+                        setMethod.invoke(this,result.getInt(attribute));
+                    }else{
+                        setMethod = this.getClass().getMethod("set" + Utils.titlelize(attribute), String.class);
+                        setMethod.invoke(this,result.getString(attribute));
+                    }
                 }catch(NoSuchMethodException e){
                     System.err.println("Campo '" + attribute + "' não existe para '" + this.getClass().getSimpleName() +"' ");
                 }catch(Exception e){
@@ -142,7 +151,12 @@ public abstract class Model {
                     fields += attribute + ",";
                     try{
                         Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
-                        values += "'" + (String)getMethod.invoke(this) + "',";
+                        Class returnType = getMethod.getReturnType();
+                        if(returnType == Integer.class){
+                            values += attribute + " = '" + (Integer)getMethod.invoke(this) + "',";
+                        }else{
+                            values += attribute + " = '" + (String)getMethod.invoke(this) + "',";
+                        }
                     }catch(NoSuchMethodException e){
                         System.err.println("Campo '" + attribute + "' não existe para '" + this.getClass().getSimpleName() +"' ");
                     }catch(Exception e){
@@ -155,16 +169,25 @@ public abstract class Model {
                 query = "INSERT INTO " + this.getClass().getSimpleName() + " " + fields +" VALUES ("+ values +");";
 
                 statement.execute(query);
-                id = statement.executeQuery("select id from " + this.getClass().getSimpleName() + " ORDER BY id desc").getInt("id");
+                query = "select id from " + this.getClass().getSimpleName() + " ORDER BY id desc";
+                ResultSet result = statement.executeQuery(query);
+                result.first();
+                id = result.getInt("id");
             }else{
                 String update = "";
                 for(String attribute: this.getAttributes()){
                     try{
                         Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
-                        update += attribute + " = '" + (String)getMethod.invoke(this) + "',";
+                        Class returnType = getMethod.getReturnType();
+                        if(returnType == Integer.class){
+                            update += attribute + " = '" + (Integer)getMethod.invoke(this) + "',";
+                        }else{
+                            update += attribute + " = '" + (String)getMethod.invoke(this) + "',";
+                        }
                     }catch(NoSuchMethodException e){
                         System.err.println("Campo '" + attribute + "' não existe para '" + this.getClass().getSimpleName() +"' ");
                     }catch(Exception e){
+                        e.printStackTrace();
                         System.err.println("O método '" + attribute + "' não é publico");
                     }
                     
@@ -179,12 +202,12 @@ public abstract class Model {
             
         }catch(SQLException e){
             System.out.println("SQL: " + query);
-            System.out.println("Problema ao salvar professor");
+            System.out.println("Problema ao salvar " + this.getClass().getSimpleName());
             Fechar();
             return false;
         }
         Fechar();
-        return true;
+        return afterSave(new_record);
     }
 
     public boolean destroy(){
@@ -217,7 +240,7 @@ public abstract class Model {
         return attributes;
     }
     
-    protected boolean afterSave(){
+    protected boolean afterSave(boolean new_record){
         return true;
     }
 

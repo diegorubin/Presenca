@@ -50,6 +50,17 @@ public class ProfessorTest extends TestCase {
         
     }
     
+    public void testEndereco() {
+        Professor professor = new Professor();
+        professor.getEndereco().setBairro("Rua do Zé");
+        professor.setNome("Morador da rua do zé");
+        
+        assertEquals(professor.save(true), true);
+        
+        professor = new Professor(2);
+        assertEquals(professor.getEndereco().getBairro(),"Rua do Zé");
+    }
+    
     /**
      * Test of destroy of database, of class Professor.
      */
