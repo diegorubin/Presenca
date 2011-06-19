@@ -29,7 +29,7 @@ public abstract class Model {
     }
     
     public Model(String classe, Integer id){
-        loadModel("classe_objeto = " + classe + " AND id_objeto = " + id);
+        loadModel("classeObjeto = '" + classe + "' AND idObjeto = " + id);
     }
     
     public Model(String conditions){
@@ -57,7 +57,7 @@ public abstract class Model {
                     Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
                     Class returnType = getMethod.getReturnType();
                     
-                    if(returnType == Integer.class){
+                    if(returnType.getSimpleName().equals("Integer")){
                         setMethod = this.getClass().getMethod("set" + Utils.titlelize(attribute), Integer.class);
                         setMethod.invoke(this,result.getInt(attribute));
                     }else{
@@ -152,14 +152,20 @@ public abstract class Model {
                     try{
                         Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
                         Class returnType = getMethod.getReturnType();
-                        if(returnType == Integer.class){
-                            values += attribute + " = '" + (Integer)getMethod.invoke(this) + "',";
+                        
+                        if(returnType.getSimpleName().equals("Integer")){
+                            values += (Integer)getMethod.invoke(this) + ",";
                         }else{
-                            values += attribute + " = '" + (String)getMethod.invoke(this) + "',";
+                            String value = (String)getMethod.invoke(this);
+                            if(value == null){
+                                value = "";
+                            }
+                            values += "'" + value + "',";
                         }
                     }catch(NoSuchMethodException e){
                         System.err.println("Campo '" + attribute + "' não existe para '" + this.getClass().getSimpleName() +"' ");
                     }catch(Exception e){
+                        e.printStackTrace();
                         System.err.println("O método '" + attribute + "' não é publico");
                     }
                     
@@ -179,7 +185,7 @@ public abstract class Model {
                     try{
                         Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
                         Class returnType = getMethod.getReturnType();
-                        if(returnType == Integer.class){
+                        if(returnType.getSimpleName().equals("Integer")){
                             update += attribute + " = '" + (Integer)getMethod.invoke(this) + "',";
                         }else{
                             update += attribute + " = '" + (String)getMethod.invoke(this) + "',";

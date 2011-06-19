@@ -26,18 +26,12 @@ public class ProfessorTest extends TestCase {
         super.tearDown();
     }
 
-    /**
-     * Test of save in database, of class Professor.
-     */
     public void testSave() {
         Professor professor = new Professor();
         professor.setNome("João da Silva");
         assertEquals(professor.save(true), true);
     }
     
-    /**
-     * Test of find in database, of class Professor.
-     */
     public void testFind() {
         Professor professor = new Professor(1);
         assertEquals(professor.getNome(),"João da Silva");
@@ -61,11 +55,9 @@ public class ProfessorTest extends TestCase {
         assertEquals(professor.getEndereco().getBairro(),"Rua do Zé");
     }
     
-    /**
-     * Test of destroy of database, of class Professor.
-     */
     public void testDestroy() {
         Professor professor = new Professor(1);
         assertEquals(professor.destroy(),true);
     }
+         
 }
