@@ -9,7 +9,6 @@ import java.lang.reflect.Method;
  * Se der tempo eu penso em algo melhor, mas por enquanto ...
  */
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public abstract class Model {
     protected ArrayList<String> Attributes = new ArrayList<String>();
-    private Integer id;
+    protected Integer id;
 
     static Connection con;
     public Model(){
@@ -26,11 +25,23 @@ public abstract class Model {
     }
     
     public Model(Integer id){
+        loadModel("id = " + id);
+    }
+    
+    public Model(String classe, Integer id){
+        loadModel("classe_objeto = " + classe + " AND id_objeto = " + id);
+    }
+    
+    public Model(String conditions){
+        loadModel(conditions);
+    }
+    
+    private void loadModel(String conditions){
         Statement statement;
         ResultSet result;
         String query = "SELECT * FROM " + 
                        this.getClass().getSimpleName() + 
-                       " WHERE id = " + id + ";";
+                       " WHERE " + conditions + ";";
 
         try{
             Conecta();
@@ -142,7 +153,9 @@ public abstract class Model {
                 fields = "(" + Utils.chop(fields) + ")";
                 values = Utils.chop(values);
                 query = "INSERT INTO " + this.getClass().getSimpleName() + " " + fields +" VALUES ("+ values +");";
+
                 statement.execute(query);
+                id = statement.executeQuery("select id from " + this.getClass().getSimpleName() + " ORDER BY id desc").getInt("id");
             }else{
                 String update = "";
                 for(String attribute: this.getAttributes()){

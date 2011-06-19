@@ -10,14 +10,12 @@
  */
 package presenca;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 
 /**
  *
  * @author drubin
  */
 public class winMain extends javax.swing.JFrame {
-    private JPanel frm;
     /** Creates new form winMain */
     public winMain() {
         initComponents();

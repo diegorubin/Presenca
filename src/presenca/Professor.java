@@ -19,6 +19,7 @@ public class Professor extends Model{
     
     public Professor(Integer id){
         super(id);
+        endereco = new Endereco(this.getClass().toString(),id);
     }
     
     public void setNome(String nome){
@@ -27,6 +28,14 @@ public class Professor extends Model{
     
     public String getNome(){
         return this.nome;
+    }
+    
+    public Endereco getEndereco(){
+        return endereco;
+    }
+    
+    public void setEndereco(Endereco endereco){
+        this.endereco = endereco;
     }
     
     @Override
@@ -39,6 +48,8 @@ public class Professor extends Model{
     
     @Override
     protected boolean afterSave(){
+        endereco.setClasseObjeto(this.getClass().toString());
+        endereco.setIdObjeto(id);
         if(!endereco.save())
             return false;
         

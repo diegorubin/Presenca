@@ -21,10 +21,15 @@ public class dlgEditProfessor extends javax.swing.JDialog {
 
     private Professor professor;
     private boolean newRecord = true;
+    private frmEndereco endereco;
     
     /** Creates new form dlgEdirProfessor */
     public dlgEditProfessor(java.awt.Frame parent, boolean modal) {
         initComponents();     
+        
+        endereco = new frmEndereco();
+        pnlProfessor.add(endereco);
+        pnlProfessor.validate();
     }
     
     public dlgEditProfessor(java.awt.Frame parent, String titulo){
@@ -56,13 +61,13 @@ public class dlgEditProfessor extends javax.swing.JDialog {
         lblTitulo = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         entNome = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        pnlProfessor = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblTitulo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Cantarell", 1, 18));
         lblTitulo.setText("TITULO");
 
         lblNome.setText("Nome:");
@@ -73,18 +78,8 @@ public class dlgEditProfessor extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 135, Short.MAX_VALUE)
-        );
+        pnlProfessor.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
+        pnlProfessor.setLayout(new java.awt.BorderLayout());
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,13 +99,12 @@ public class dlgEditProfessor extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                             .addComponent(lblTitulo)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblNome)
@@ -125,7 +119,6 @@ public class dlgEditProfessor extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
@@ -134,8 +127,8 @@ public class dlgEditProfessor extends javax.swing.JDialog {
                     .addComponent(lblNome)
                     .addComponent(entNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
@@ -168,16 +161,18 @@ public class dlgEditProfessor extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField entNome;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlProfessor;
     // End of variables declaration//GEN-END:variables
     
     private void getFromForm(){
         professor.setNome(entNome.getText());
+        professor.setEndereco(endereco.getEndereco());
     }
     
     private void setForm(){
         entNome.setText(professor.getNome());
+        endereco.setEndereco(professor.getEndereco());
     }
 }
