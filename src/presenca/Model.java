@@ -16,24 +16,46 @@ import javax.swing.table.DefaultTableModel;
  * @author diego
  */
 public abstract class Model {
-    protected ArrayList<String> Attributes = new ArrayList<String>();
+    private ArrayList<String> Attributes = new ArrayList<String>();
     protected Integer id;
+    
+    private String join = "";
 
     static Connection con;
     public Model(){
-
+        getRelationships();
     }
     
     public Model(Integer id){
+        this();
         loadModel("id = " + id);
     }
     
     public Model(String classe, Integer id){
+        this();
         loadModel("classeObjeto = '" + classe + "' AND idObjeto = " + id);
     }
     
     public Model(String conditions){
+        this();
         loadModel(conditions);
+    }
+    
+    private void getRelationships(){
+        for(String attr: getAttributes()){
+            try{
+                Class.forName(attr);
+                String tableName = attr.replaceFirst("\\w+\\.", "");
+                join += "LEFT OUTER JOIN "+ 
+                        tableName +
+                        " ON (" +
+                        tableName + ".idObjeto = " + this.getClass().getSimpleName() + ".id AND " +
+                        tableName + ".classeObjeto = " + this.getClass().getSimpleName() +
+                        ")";
+            }catch(ClassNotFoundException e){
+                Attributes.add(attr);
+            }
+        }
     }
     
     private void loadModel(String conditions){
@@ -51,7 +73,7 @@ public abstract class Model {
             result.first();
 
             this.id = result.getInt("id");
-            for(String attribute: getAttributes()){
+            for(String attribute: Attributes){
                 try{
                     Method setMethod;
                     Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
@@ -105,12 +127,12 @@ public abstract class Model {
                                             ResultSet.CONCUR_READ_ONLY);
             result = statement.executeQuery(query);
             
-            Object contents[] = new Object[getAttributes().size()+1];
+            Object contents[] = new Object[Attributes.size()+1];
             
             while(result.next()){
                 i=0;
                 contents[i++] = result.getString("id");
-                for(String attribute: getAttributes()){
+                for(String attribute: Attributes){
                     try{
                         contents[i++] = result.getString(attribute);
                     }catch(Exception e){
@@ -147,7 +169,7 @@ public abstract class Model {
                 String values = "";
                 String fields = "";
                 
-                for(String attribute: this.getAttributes()){
+                for(String attribute: Attributes){
                     fields += attribute + ",";
                     try{
                         Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
@@ -181,7 +203,7 @@ public abstract class Model {
                 id = result.getInt("id");
             }else{
                 String update = "";
-                for(String attribute: this.getAttributes()){
+                for(String attribute: Attributes){
                     try{
                         Method getMethod = this.getClass().getMethod("get" + Utils.titlelize(attribute));
                         Class returnType = getMethod.getReturnType();

@@ -12,6 +12,9 @@ import java.util.ArrayList;
  */
 public class Professor extends Model{
     private String nome;
+    private String formacao;
+    private String anoConclusao;
+    
     private Endereco endereco;
     
     public Professor(){
@@ -31,6 +34,22 @@ public class Professor extends Model{
         return this.nome;
     }
     
+    public void setAnoConclusao(String anoConclusao){
+        this.anoConclusao = anoConclusao;
+    }
+    
+    public String getAnoConclusao(){
+        return anoConclusao;
+    }
+    
+    public void setFormacao(String formacao){
+        this.formacao = formacao;
+    }
+    
+    public String getFormacao(){
+        return formacao;
+    }
+    
     public Endereco getEndereco(){
         return endereco;
     }
@@ -43,6 +62,11 @@ public class Professor extends Model{
     protected ArrayList<String> getAttributes(){
         ArrayList<String> attributes = new ArrayList<String>();
         attributes.add("nome");
+        attributes.add("formacao");
+        attributes.add("anoConclusao");
+        
+        //relacionamentos
+        attributes.add("presenca.Endereco");
         
         return attributes;
     }

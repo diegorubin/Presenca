@@ -38,6 +38,8 @@ public class dlgEditProfessor extends javax.swing.JDialog {
         lblTitulo.setText(titulo);
         professor = new Professor();
         
+        setForm();
+        
     }
     
     public dlgEditProfessor(java.awt.Frame parent, String titulo, Integer professorId){
@@ -59,24 +61,21 @@ public class dlgEditProfessor extends javax.swing.JDialog {
     private void initComponents() {
 
         lblTitulo = new javax.swing.JLabel();
-        lblNome = new javax.swing.JLabel();
-        entNome = new javax.swing.JTextField();
         pnlProfessor = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
+        pnlGeral = new javax.swing.JPanel();
+        lblNome = new javax.swing.JLabel();
+        entNome = new javax.swing.JTextField();
+        lblFormacao = new javax.swing.JLabel();
+        entFormacao = new javax.swing.JTextField();
+        lblAnoConclusao = new javax.swing.JLabel();
+        entAnoConclusao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Cantarell", 1, 18));
         lblTitulo.setText("TITULO");
-
-        lblNome.setText("Nome:");
-
-        entNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                entNomeActionPerformed(evt);
-            }
-        });
 
         pnlProfessor.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
         pnlProfessor.setLayout(new java.awt.BorderLayout());
@@ -95,6 +94,54 @@ public class dlgEditProfessor extends javax.swing.JDialog {
             }
         });
 
+        pnlGeral.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações Principais"));
+
+        lblNome.setText("Nome:");
+
+        entNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entNomeActionPerformed(evt);
+            }
+        });
+
+        lblFormacao.setText("Formação:");
+
+        lblAnoConclusao.setText("Ano de Conclusão:");
+
+        javax.swing.GroupLayout pnlGeralLayout = new javax.swing.GroupLayout(pnlGeral);
+        pnlGeral.setLayout(pnlGeralLayout);
+        pnlGeralLayout.setHorizontalGroup(
+            pnlGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGeralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblAnoConclusao)
+                    .addComponent(lblFormacao)
+                    .addComponent(lblNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(entAnoConclusao)
+                    .addComponent(entFormacao)
+                    .addComponent(entNome, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        pnlGeralLayout.setVerticalGroup(
+            pnlGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGeralLayout.createSequentialGroup()
+                .addGroup(pnlGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNome)
+                    .addComponent(entNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFormacao)
+                    .addComponent(entFormacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAnoConclusao)
+                    .addComponent(entAnoConclusao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,35 +150,34 @@ public class dlgEditProfessor extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                            .addComponent(lblTitulo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(entNome, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addContainerGap(441, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlGeral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(lblTitulo)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome)
-                    .addComponent(entNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnSalvar))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -160,19 +206,30 @@ public class dlgEditProfessor extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JTextField entAnoConclusao;
+    private javax.swing.JTextField entFormacao;
     private javax.swing.JTextField entNome;
+    private javax.swing.JLabel lblAnoConclusao;
+    private javax.swing.JLabel lblFormacao;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlGeral;
     private javax.swing.JPanel pnlProfessor;
     // End of variables declaration//GEN-END:variables
     
     private void getFromForm(){
         professor.setNome(entNome.getText());
+        professor.setAnoConclusao(entAnoConclusao.getText());
+        professor.setFormacao(entFormacao.getText());
+        
         professor.setEndereco(endereco.getEndereco());
     }
     
     private void setForm(){
         entNome.setText(professor.getNome());
+        entAnoConclusao.setText(professor.getAnoConclusao());
+        entFormacao.setText(professor.getFormacao());
+        
         endereco.setEndereco(professor.getEndereco());
     }
 }

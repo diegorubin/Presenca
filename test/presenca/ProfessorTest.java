@@ -43,7 +43,7 @@ public class ProfessorTest extends TestCase {
         assertEquals(professor.getNome(),"Maria da Silva");
         
     }
-    
+
     public void testEndereco() {
         Professor professor = new Professor();
         professor.getEndereco().setBairro("Rua do Zé");
@@ -54,10 +54,10 @@ public class ProfessorTest extends TestCase {
         professor = new Professor(2);
         assertEquals(professor.getEndereco().getBairro(),"Rua do Zé");
     }
-    
+   
     public void testDestroy() {
         Professor professor = new Professor(1);
         assertEquals(professor.destroy(),true);
     }
-         
+
 }
