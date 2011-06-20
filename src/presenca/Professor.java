@@ -26,6 +26,11 @@ public class Professor extends Model{
         endereco = new Endereco("Professor",id);
     }
     
+    public Professor(String conditions){
+        super(conditions);
+        endereco = new Endereco("Professor",id);
+    }
+    
     public void setNome(String nome){
         this.nome = nome;
     }

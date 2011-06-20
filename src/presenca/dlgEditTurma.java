@@ -13,6 +13,7 @@ package presenca;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,6 +25,10 @@ public class dlgEditTurma extends javax.swing.JDialog {
     private boolean newRecord = true;
     private Professor professor;
     private Aluno aluno;
+    private DefaultListModel mdlAlunosMatriculados;
+ 
+    
+    private ArrayList<Aluno> alunos = new ArrayList<Aluno>();
     
     /** Creates new form dlgEditTurma */
     public dlgEditTurma(java.awt.Frame parent, boolean modal) {
@@ -31,6 +36,7 @@ public class dlgEditTurma extends javax.swing.JDialog {
         initComponents();
         
         professor = new Professor();
+        mdlAlunosMatriculados = new DefaultListModel();
         
         for(Object item: professor.listAttribute("nome", "")){
             cmbProfessor.addItem(item);
@@ -88,6 +94,8 @@ public class dlgEditTurma extends javax.swing.JDialog {
         lstAlunosMatriculados = new javax.swing.JList();
         cmbAlunos = new javax.swing.JComboBox();
         btnAdicionar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        entOutput = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,6 +137,14 @@ public class dlgEditTurma extends javax.swing.JDialog {
             }
         });
 
+        jLabel4.setText("Saida Lista:");
+
+        entOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entOutputActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,32 +165,37 @@ public class dlgEditTurma extends javax.swing.JDialog {
                 .addGap(140, 140, 140))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblProfessor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProfessor, 0, 193, Short.MAX_VALUE))
+                                .addComponent(cmbProfessor, 0, 198, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTitulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblAno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(entAno, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                .addComponent(entAno, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(127, 127, 127))
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(entOutput))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(244, Short.MAX_VALUE)
+                .addContainerGap(126, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(139, 139, 139))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,9 +227,13 @@ public class dlgEditTurma extends javax.swing.JDialog {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(entOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -219,18 +244,33 @@ public class dlgEditTurma extends javax.swing.JDialog {
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        getFromForm();
+        /*getFromForm();
         if(turma.save(newRecord)){
             JOptionPane.showMessageDialog(this, "Aluno salvo com sucesso.");
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Não foi possível salvar os dados.");
-        }
+        }*/
+        
+        ListaChamada lc = new ListaChamada("src/presenca/resources/template.svg");
+        lc.setProfessor(new Professor("nome = '"+ cmbProfessor.getSelectedItem() +"'"));
+        lc.setAlunos(alunos);
+        lc.setOutput(entOutput.getText());
+        lc.saveOutput();
+        
 }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        mdlAlunosMatriculados.addElement(cmbAlunos.getSelectedItem());
         
+        lstAlunosMatriculados.setModel(mdlAlunosMatriculados);
+        
+        alunos.add(new Aluno("nome = '"+ cmbAlunos.getSelectedItem() +"'"));
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void entOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entOutputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_entOutputActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -239,10 +279,12 @@ public class dlgEditTurma extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbAlunos;
     private javax.swing.JComboBox cmbProfessor;
     private javax.swing.JTextField entAno;
+    private javax.swing.JTextField entOutput;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblProfessor;

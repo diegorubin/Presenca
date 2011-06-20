@@ -25,6 +25,11 @@ public class Aluno extends Model {
         endereco = new Endereco("Aluno",id);
     }
     
+    public Aluno(String conditions){
+        super(conditions);
+        endereco = new Endereco("Aluno",id);
+    }
+    
     public void setNome(String nome){
         this.nome = nome;
     }
