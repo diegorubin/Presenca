@@ -95,8 +95,8 @@
                 <Column editable="false" title="id" type="java.lang.Integer"/>
                 <Column editable="false" title="Disciplina" type="java.lang.String"/>
                 <Column editable="false" title="Professor" type="java.lang.String"/>
-                <Column editable="false" title="Ano" type="java.lang.Integer"/>
-                <Column editable="false" title="Semestre" type="java.lang.Integer"/>
+                <Column editable="false" title="Ano" type="java.lang.String"/>
+                <Column editable="false" title="Semestre" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -101,6 +101,45 @@ public abstract class Model {
 
     }
     
+    public ArrayList<String> listAttribute(String attribute, String conditions){
+        ArrayList<String> contents = new ArrayList<String>();
+        Statement statement;
+        ResultSet result;
+
+        String query = "SELECT * FROM " + 
+                       this.getClass().getSimpleName();
+        if(!conditions.isEmpty()){
+            query += " WHERE " + conditions;
+        }
+        
+        query += ";";
+
+        try{
+            Conecta();
+            statement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                                            ResultSet.CONCUR_READ_ONLY);
+            result = statement.executeQuery(query);
+            
+            int i = 0;
+            while(result.next()){
+                    try{
+                        contents.add(result.getString(attribute));
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        System.err.println("O método '" + attribute + "' não é publico");
+                    }
+
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Query: " + query);
+            System.out.println("Problema na consulta");
+        }
+        Fechar();
+        
+        return contents;
+    }
+    
     public void toTable(JTable table, String conditions){
        
         Statement statement;

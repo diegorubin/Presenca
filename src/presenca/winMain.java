@@ -44,6 +44,7 @@ public class winMain extends javax.swing.JFrame {
         mnTurmas = new javax.swing.JMenu();
         mnGerenciarTurma = new javax.swing.JMenuItem();
         mnGerenciarDisciplinas = new javax.swing.JMenuItem();
+        mnGerarLista = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Presença - Gestão de Alunos");
@@ -108,6 +109,14 @@ public class winMain extends javax.swing.JFrame {
         });
         mnTurmas.add(mnGerenciarDisciplinas);
 
+        mnGerarLista.setText("Gerar Lista de Chamada");
+        mnGerarLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGerarListaActionPerformed(evt);
+            }
+        });
+        mnTurmas.add(mnGerarLista);
+
         mnbMain.add(mnTurmas);
 
         setJMenuBar(mnbMain);
@@ -143,6 +152,11 @@ public class winMain extends javax.swing.JFrame {
         frmContent.validate(); 
     }//GEN-LAST:event_mnGerenciarDisciplinasActionPerformed
 
+    private void mnGerarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGerarListaActionPerformed
+        dlgGerarLista dialog = new dlgGerarLista(this, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_mnGerarListaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -158,6 +172,7 @@ public class winMain extends javax.swing.JFrame {
     private javax.swing.JPanel frmContent;
     private javax.swing.JMenu mnAlunos;
     private javax.swing.JMenu mnArquivo;
+    private javax.swing.JMenuItem mnGerarLista;
     private javax.swing.JMenuItem mnGerenciarAlunos;
     private javax.swing.JMenuItem mnGerenciarDisciplinas;
     private javax.swing.JMenuItem mnGerenciarProfessores;

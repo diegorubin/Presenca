@@ -11,42 +11,44 @@ import java.util.ArrayList;
  */
 public class Turma extends Model{
     private Integer disciplinaId;
-    private Integer semestre;
-    private Integer ano;
+    private String semestre;
+    private String ano;
     private Integer professorId;
     
     private Professor professor;
+    private Disciplina disciplina;
     
     public Turma(){
-        professor = new Professor();
     }
     
     public Turma(Integer id){
         super(id);
         professor = new Professor(professorId);
+        disciplina = new Disciplina(disciplinaId);
     }
     
     public void setDisciplinaId(Integer disciplinaId){
         this.disciplinaId = disciplinaId;
+        disciplina = new Disciplina(disciplinaId);
     }
     
     public Integer getDisciplinaId(){
         return disciplinaId;
     }
     
-    public void setAno(Integer ano){
+    public void setAno(String ano){
         this.ano = ano;
     }
     
-    public Integer getAno(){
+    public String getAno(){
         return ano;
     }
     
-    public void setSemestre(Integer semestre){
+    public void setSemestre(String semestre){
         this.semestre = semestre;
     }
     
-    public Integer getSemestre(){
+    public String getSemestre(){
         return semestre;
     }
     
@@ -61,5 +63,21 @@ public class Turma extends Model{
     
     public Professor getProfessor(){
         return professor;
+    }
+    
+    public Disciplina getDisciplina(){
+        return disciplina;
+    }
+    
+    @Override
+    protected ArrayList<String> getAttributes(){
+        ArrayList<String> attributes = new ArrayList<String>();
+        attributes.add("nome");
+        attributes.add("disciplinaId");
+        attributes.add("professorId");
+        attributes.add("semestre");
+        attributes.add("ano");
+
+        return attributes;
     }
 }
