@@ -10,6 +10,10 @@
  */
 package presenca;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -22,6 +26,9 @@ public class frmTurma extends javax.swing.JPanel {
     /** Creates new form frmTurma */
     public frmTurma() {
         initComponents();
+        
+        turma = new Turma();
+        generateTable();
     }
 
     /** This method is called from within the constructor to
@@ -37,6 +44,7 @@ public class frmTurma extends javax.swing.JPanel {
         btnAdicionar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
+        btnGerarLista = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTurmas = new javax.swing.JTable();
 
@@ -84,6 +92,17 @@ public class frmTurma extends javax.swing.JPanel {
         });
         tlbAlunos.add(btnRemover);
 
+        btnGerarLista.setText("Gerar Lista");
+        btnGerarLista.setFocusable(false);
+        btnGerarLista.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGerarLista.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGerarLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarListaActionPerformed(evt);
+            }
+        });
+        tlbAlunos.add(btnGerarLista);
+
         add(tlbAlunos);
 
         tblTurmas.setModel(new javax.swing.table.DefaultTableModel(
@@ -126,9 +145,9 @@ public class frmTurma extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Integer idTurma = tblTurmas.getSelectedRow();
         if(idTurma >= 0){
-            String id = (String)tblTurmas.getValueAt(idTurma, 0);
+            Integer id = (Integer)tblTurmas.getValueAt(idTurma, 0);
             
-            editTurma = new dlgEditTurma(null, "Editar Turma", Integer.parseInt(id));
+            editTurma = new dlgEditTurma(null, "Editar Turma", id);
             editTurma.setVisible(true);
             generateTable();
         }else{
@@ -139,14 +158,14 @@ public class frmTurma extends javax.swing.JPanel {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         Integer idTurma = tblTurmas.getSelectedRow();
         if(idTurma >= 0){
-            String id = (String)tblTurmas.getValueAt(idTurma, 0);
+            Integer id = (Integer)tblTurmas.getValueAt(idTurma, 0);
             
             int result = JOptionPane.showConfirmDialog(this,
                     "A ação de remoção não poderá ser desfeita.\nDeseja prosseguir?",
                     "Deseja remover a turma?",
                     0);
             if(result == 0){
-                turma = new Turma(Integer.parseInt(id));
+                turma = new Turma(id);
                 turma.destroy();
                 generateTable();
             }
@@ -156,15 +175,74 @@ public class frmTurma extends javax.swing.JPanel {
         }
 }//GEN-LAST:event_btnRemoverActionPerformed
 
+    private void btnGerarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarListaActionPerformed
+        Integer idTurma = tblTurmas.getSelectedRow();
+        if(idTurma >= 0){
+            Integer id = (Integer)tblTurmas.getValueAt(idTurma, 0);
+            turma = new Turma(id);
+            
+            ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+            AlunoTurma at = new AlunoTurma();
+            Aluno a;
+            
+            ArrayList<Integer> alunoIds = at.allId("idTurma = " + id);
+            for(Integer ai: alunoIds){
+                at = new AlunoTurma(ai);
+                alunos.add(new Aluno(at.getIdAluno()));
+            }
+            
+            ListaChamada lc = new ListaChamada("src/presenca/resources/template.svg");
+            lc.setProfessor(turma.getProfessor());
+            lc.setAlunos(alunos);
+            
+            JFileChooser fc = new JFileChooser();
+            
+            int returnVal = fc.showSaveDialog(this);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                String output = fc.getCurrentDirectory().toString();
+                output += "/"+fc.getSelectedFile().getName();
+                System.out.println(output);
+                lc.setOutput(output);
+                lc.saveOutput();
+            }
+            
+            
+            
+            generateTable();
+        }else{
+            JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado.");
+        }
+    }//GEN-LAST:event_btnGerarListaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnGerarLista;
     private javax.swing.JButton btnRemover;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTurmas;
     private javax.swing.JToolBar tlbAlunos;
     // End of variables declaration//GEN-END:variables
     private void generateTable(){
+        DefaultTableModel mdlModel = (DefaultTableModel)tblTurmas.getModel();
         
+        int i;
+        for(i = mdlModel.getRowCount() - 1; i >= 0; i-- ){
+            mdlModel.removeRow(i);
+        }
+        
+        Object contents[] = new Object[5];
+        
+        for(Integer id: turma.allId("")){
+            turma = new Turma(id);
+            
+            contents[0] = id;
+            contents[1] = turma.getDisciplina().getNome();
+            contents[2] = turma.getProfessor().getNome();
+            contents[3] = turma.getAno();
+            contents[4] = turma.getSemestre();
+            
+            mdlModel.addRow(contents);
+        }
     }
 }

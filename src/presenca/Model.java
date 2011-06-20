@@ -189,6 +189,40 @@ public abstract class Model {
         Fechar();
         
     }
+    
+    public ArrayList<Integer> allId(String conditions){
+        ArrayList<Integer> all = new ArrayList<Integer>();
+        
+        Statement statement;
+        ResultSet result;
+
+        String query = "SELECT id FROM " + 
+                       this.getClass().getSimpleName();
+        if(!conditions.isEmpty()){
+            query += " WHERE " + conditions;
+        }
+        
+        query += ";";
+
+        try{
+            Conecta();
+            statement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                                            ResultSet.CONCUR_READ_ONLY);
+            result = statement.executeQuery(query);
+            
+            while(result.next()){
+
+                all.add(result.getInt("id"));
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Query: " + query);
+            System.out.println("Problema na consulta");
+        }
+        Fechar();
+        
+        return all;
+    }
 
     public boolean save(){
         return save(false);

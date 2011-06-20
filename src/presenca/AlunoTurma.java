@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * @author diego
  */
 public class AlunoTurma extends Model{
-     private String nome;
+     private Integer idAluno;
+     private Integer idTurma;
     
     public AlunoTurma(){
         
@@ -18,6 +19,22 @@ public class AlunoTurma extends Model{
     
     public AlunoTurma(Integer id){
         super(id);
+    }
+    
+    public void setIdTurma(Integer idTurma){
+        this.idTurma = idTurma;
+    }
+    
+    public Integer getIdTurma(){
+        return idTurma;
+    }
+    
+    public void setIdAluno(Integer idAluno){
+        this.idAluno = idAluno;
+    }
+    
+    public Integer getIdAluno(){
+        return idAluno;
     }
     
     @Override

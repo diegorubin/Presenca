@@ -9,17 +9,28 @@
  * Created on 19/06/2011, 20:52:34
  */
 package presenca;
-
+import java.util.ArrayList;
 /**
  *
  * @author diego
  */
 public class dlgGerarLista extends javax.swing.JDialog {
-
+    private Turma turma;
+    
     /** Creates new form dlgGerarLista */
     public dlgGerarLista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        turma = new Turma();
+        ArrayList<Integer> allTurmas = turma.allId("");
+        
+        for(Integer id: allTurmas){
+            turma = new Turma(id);
+            cmbTurma.addItem(turma.getProfessor().getNome() + " ");
+        }
+        
+        
     }
 
     /** This method is called from within the constructor to

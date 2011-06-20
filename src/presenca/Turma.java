@@ -72,7 +72,6 @@ public class Turma extends Model{
     @Override
     protected ArrayList<String> getAttributes(){
         ArrayList<String> attributes = new ArrayList<String>();
-        attributes.add("nome");
         attributes.add("disciplinaId");
         attributes.add("professorId");
         attributes.add("semestre");

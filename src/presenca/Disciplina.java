@@ -21,6 +21,10 @@ public class Disciplina extends Model{
         super(id);
     }
     
+    public Disciplina(String conditions){
+        super(conditions);
+    }
+    
     public void setNome(String nome){
         this.nome = nome;
     }
@@ -28,7 +32,7 @@ public class Disciplina extends Model{
     public String getNome(){
         return this.nome;
     }
-    
+        
        
     @Override
     protected ArrayList<String> getAttributes(){
